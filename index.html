@@ -187,11 +187,22 @@
       margin: 0 auto;
     }
 
+    .ded-family {
+      max-width: 620px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
     .ded-top {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 0.75fr 1.25fr;
       gap: clamp(1.5rem, 4vw, 3rem);
       align-items: center;
+    }
+
+    .ded-mom img {
+      max-width: min(100%, 300px);
+      margin: 0 auto;
     }
 
     .ded-photo img {
@@ -250,6 +261,12 @@
       color: #59452b;
     }
 
+    @media (max-height: 900px) {
+      .ded-inner { gap: 1.1rem; }
+      .ded-family { max-width: 460px; }
+      .ded-mom img { max-width: min(100%, 230px); }
+    }
+
     @media (max-width: 760px) {
       .ded-inner { justify-content: flex-start; }
       .ded-top, .ded-bottom { grid-template-columns: 1fr; }
@@ -275,9 +292,13 @@
 
       <p class="ded-intro">To my loving husband of 36&nbsp;years, Gene, and our three sons, Ryan, Eric and Drew, for the countless times we enjoyed and the precious moments we shared together building our family. Those experiences inspired me to create this book.</p>
 
+      <figure class="ded-photo ded-family">
+        <img src="images/family-beach.jpg" alt="The family together on the beach">
+      </figure>
+
       <div class="ded-top">
-        <figure class="ded-photo">
-          <img src="images/family-beach.jpg" alt="The family together on the beach">
+        <figure class="ded-photo ded-mom">
+          <img src="images/mom.jpg" alt="Mom">
         </figure>
         <div>
           <div class="flourish" style="margin-bottom:0.6rem"><span>❖</span></div>
