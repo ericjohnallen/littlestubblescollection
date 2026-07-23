@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Stubbles Collection — Coming Soon</title>
+  <meta name="description" content="Little Stubbles Collection — something wonderful for little ones is on its way. Coming soon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧸</text></svg>">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 2.5s ease-in-out, transform 14s ease-out;
+      z-index: -2;
+    }
+    .bg.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .bg-1 { background-image: url('images/bg-1.jpg'); }
+    .bg-2 { background-image: url('images/bg-2.jpg'); }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(30, 25, 60, 0.35) 0%,
+        rgba(30, 25, 60, 0.55) 55%,
+        rgba(30, 25, 60, 0.72) 100%);
+      z-index: -1;
+    }
+
+    .wrap {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      gap: 1.4rem;
+    }
+
+    .badge {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 0.5rem 1.4rem;
+      animation: rise 0.9s ease-out both;
+    }
+
+    h1 {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.6rem, 8vw, 5.2rem);
+      line-height: 1.05;
+      text-shadow: 0 4px 24px rgba(20, 15, 50, 0.55);
+      animation: rise 0.9s 0.15s ease-out both;
+    }
+
+    h1 .accent { color: #ffd94d; }
+
+    .tagline {
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+      font-weight: 500;
+      max-width: 34rem;
+      line-height: 1.6;
+      text-shadow: 0 2px 12px rgba(20, 15, 50, 0.6);
+      animation: rise 0.9s 0.3s ease-out both;
+    }
+
+    .coming {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: #1e193c;
+      background: #ffd94d;
+      border-radius: 999px;
+      padding: 0.75rem 2.2rem;
+      box-shadow: 0 8px 28px rgba(20, 15, 50, 0.35);
+      animation: rise 0.9s 0.45s ease-out both;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 1.2rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.75;
+      text-shadow: 0 1px 8px rgba(20, 15, 50, 0.6);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg { transition: opacity 2.5s ease-in-out; transform: none; }
+      .badge, h1, .tagline, .coming { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg bg-1 active"></div>
+  <div class="bg bg-2"></div>
+  <div class="overlay"></div>
+
+  <main class="wrap">
+    <span class="badge">Something sweet is stirring</span>
+    <h1>Little Stubbles<br><span class="accent">Collection</span></h1>
+    <p class="tagline">A world of warmth, wonder, and little moments that matter — made with love for the littlest members of the family.</p>
+    <span class="coming">Coming Soon</span>
+  </main>
+
+  <footer>&copy; 2026 Little Stubbles Collection &middot; littlestubblescollection.com</footer>
+
+  <script>
+    const bgs = document.querySelectorAll('.bg');
+    let current = 0;
+    setInterval(() => {
+      bgs[current].classList.remove('active');
+      current = (current + 1) % bgs.length;
+      bgs[current].classList.add('active');
+    }, 8000);
+  </script>
+</body>
+</html>
