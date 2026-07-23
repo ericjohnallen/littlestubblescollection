@@ -36,6 +36,22 @@
     }
     .bg-1 { background-image: url('images/bg-1.jpg'); }
     .bg-2 { background-image: url('images/bg-2.jpg'); }
+    /* Dedication page: shown whole (no crop) on a parchment backdrop so its text stays readable */
+    .bg-3 {
+      background-image: url('images/bg-3.jpg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #ede4d3;
+      transform: none;
+    }
+
+    body.reading .overlay,
+    body.reading .wrap,
+    body.reading footer {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .overlay, .wrap, footer { transition: opacity 2.5s ease-in-out; }
 
     .overlay {
       position: fixed;
@@ -131,6 +147,7 @@
 <body>
   <div class="bg bg-1 active"></div>
   <div class="bg bg-2"></div>
+  <div class="bg bg-3"></div>
   <div class="overlay"></div>
 
   <main class="wrap">
@@ -144,12 +161,17 @@
 
   <script>
     const bgs = document.querySelectorAll('.bg');
+    // The dedication page (last slide) holds longer so it can be read
+    const holds = [8000, 8000, 20000];
     let current = 0;
-    setInterval(() => {
+    function next() {
       bgs[current].classList.remove('active');
       current = (current + 1) % bgs.length;
       bgs[current].classList.add('active');
-    }, 8000);
+      document.body.classList.toggle('reading', current === bgs.length - 1);
+      setTimeout(next, holds[current]);
+    }
+    setTimeout(next, holds[0]);
   </script>
 </body>
 </html>
