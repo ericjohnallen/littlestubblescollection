@@ -195,13 +195,13 @@
 
     .ded-top {
       display: grid;
-      grid-template-columns: 0.75fr 1.25fr;
-      gap: clamp(1.5rem, 4vw, 3rem);
+      grid-template-columns: 0.55fr 1.45fr;
+      gap: clamp(1.2rem, 3vw, 2.2rem);
       align-items: center;
     }
 
     .ded-mom img {
-      max-width: min(100%, 300px);
+      max-width: min(100%, 190px);
       margin: 0 auto;
     }
 
@@ -264,7 +264,7 @@
     @media (max-height: 900px) {
       .ded-inner { gap: 1.1rem; }
       .ded-family { max-width: 460px; }
-      .ded-mom img { max-width: min(100%, 230px); }
+      .ded-mom img { max-width: min(100%, 160px); }
     }
 
     @media (max-width: 760px) {
@@ -285,16 +285,16 @@
 
   <section class="bg dedication" aria-label="Family dedication">
     <div class="ded-inner">
+      <figure class="ded-photo ded-family">
+        <img src="images/family-beach.jpg" alt="The family together on the beach">
+      </figure>
+
       <header>
         <h2 class="ded-title">Dedication</h2>
         <div class="flourish"><span>❖</span></div>
       </header>
 
       <p class="ded-intro">To my loving husband of 36&nbsp;years, Gene, and our three sons, Ryan, Eric and Drew, for the countless times we enjoyed and the precious moments we shared together building our family. Those experiences inspired me to create this book.</p>
-
-      <figure class="ded-photo ded-family">
-        <img src="images/family-beach.jpg" alt="The family together on the beach">
-      </figure>
 
       <div class="ded-top">
         <figure class="ded-photo ded-mom">
