@@ -7,7 +7,7 @@
   <meta name="description" content="Little Stubbles Collection — something wonderful for little ones is on its way. Coming soon.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧸</text></svg>">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,6 +29,7 @@
       transform: scale(1.06);
       transition: opacity 2.5s ease-in-out, transform 14s ease-out;
       z-index: -2;
+      pointer-events: none;
     }
     .bg.active {
       opacity: 1;
@@ -36,14 +37,6 @@
     }
     .bg-1 { background-image: url('images/bg-1.jpg'); }
     .bg-2 { background-image: url('images/bg-2.jpg'); }
-    /* Dedication page: shown whole (no crop) on a parchment backdrop so its text stays readable */
-    .bg-3 {
-      background-image: url('images/bg-3.jpg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-color: #ede4d3;
-      transform: none;
-    }
 
     body.reading .overlay,
     body.reading .wrap,
@@ -138,6 +131,131 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ---------- Dedication slide (real HTML, not an image) ---------- */
+
+    .dedication {
+      background: radial-gradient(ellipse at 50% 30%, #f6efe1 0%, #efe5d1 55%, #e6dabf 100%);
+      transform: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      color: #4d3b26;
+      text-align: center;
+    }
+    .dedication.active { z-index: 1; pointer-events: auto; }
+
+    .ded-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: clamp(1.6rem, 4.5vh, 3.5rem) clamp(1.2rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1.4rem, 3.2vh, 2.4rem);
+      min-height: 100%;
+      justify-content: center;
+    }
+
+    .ded-title {
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #40301b;
+    }
+
+    .flourish {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: #a98f66;
+      margin-top: 0.35rem;
+    }
+    .flourish::before,
+    .flourish::after {
+      content: '';
+      width: clamp(2.5rem, 7vw, 4.5rem);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #a98f66);
+    }
+    .flourish::after { background: linear-gradient(90deg, #a98f66, transparent); }
+    .flourish span { font-size: 0.9rem; }
+
+    .ded-intro {
+      font-size: clamp(1.02rem, 2vw, 1.28rem);
+      line-height: 1.65;
+      max-width: 58rem;
+      margin: 0 auto;
+    }
+
+    .ded-top {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: center;
+    }
+
+    .ded-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #b8a586;
+      box-shadow: 0 10px 30px rgba(77, 59, 38, 0.22);
+    }
+
+    .ded-photo figcaption {
+      font-style: italic;
+      font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+      margin-top: 0.6rem;
+      color: #6b573c;
+    }
+
+    .ded-heading {
+      font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+      font-weight: 500;
+      color: #40301b;
+      margin-bottom: 0.7rem;
+    }
+
+    .ded-text {
+      font-size: clamp(1rem, 1.9vw, 1.22rem);
+      line-height: 1.62;
+    }
+
+    .ded-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: #b39670;
+    }
+    .ded-divider::before,
+    .ded-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #cdbb99;
+    }
+    .ded-divider span { font-size: 1.1rem; }
+
+    .ded-bottom {
+      display: grid;
+      grid-template-columns: 1fr 0.95fr 1fr;
+      gap: clamp(1.5rem, 3.5vw, 2.5rem);
+      align-items: center;
+    }
+
+    .ded-closing {
+      font-size: clamp(0.85rem, 1.6vw, 1rem);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #59452b;
+    }
+
+    @media (max-width: 760px) {
+      .ded-inner { justify-content: flex-start; }
+      .ded-top, .ded-bottom { grid-template-columns: 1fr; }
+      .ded-bottom .ded-photo { order: -1; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .bg { transition: opacity 2.5s ease-in-out; transform: none; }
       .badge, h1, .tagline, .coming { animation: none; }
@@ -147,7 +265,48 @@
 <body>
   <div class="bg bg-1 active"></div>
   <div class="bg bg-2"></div>
-  <div class="bg bg-3"></div>
+
+  <section class="bg dedication" aria-label="Family dedication">
+    <div class="ded-inner">
+      <header>
+        <h2 class="ded-title">Dedication</h2>
+        <div class="flourish"><span>❖</span></div>
+      </header>
+
+      <p class="ded-intro">To my loving husband of 36&nbsp;years, Gene, and our three sons, Ryan, Eric and Drew, for the countless times we enjoyed and the precious moments we shared together building our family. Those experiences inspired me to create this book.</p>
+
+      <div class="ded-top">
+        <figure class="ded-photo">
+          <img src="images/family-beach.jpg" alt="The family together on the beach">
+        </figure>
+        <div>
+          <div class="flourish" style="margin-bottom:0.6rem"><span>❖</span></div>
+          <h3 class="ded-heading">To Our Incredible Mom</h3>
+          <p class="ded-text">Thank you for every sacrifice, every lesson, and every moment of love. You are the heart of our family and the inspiration behind everything we do. We are endlessly grateful for you and cheer you on in all of your dreams.</p>
+        </div>
+      </div>
+
+      <div class="ded-divider"><span>♥</span></div>
+
+      <div class="ded-bottom">
+        <div>
+          <h3 class="ded-heading">To Our Dad</h3>
+          <p class="ded-text">Your steady presence, quiet strength, and unwavering support have shaped our lives in more ways than words. Thank you for being the rock of our family.</p>
+        </div>
+        <figure class="ded-photo">
+          <img src="images/toddlers.jpg" alt="Eric, Drew and Ryan as toddlers">
+          <figcaption>Eric, Drew and Ryan as toddlers.</figcaption>
+        </figure>
+        <div>
+          <h3 class="ded-heading">We Love You</h3>
+          <p class="ded-text">Your love built our foundation. Now, we stand beside you, proud of you, supporting you, and grateful every day.</p>
+        </div>
+      </div>
+
+      <p class="ded-closing">Our family is who we are because of your guidance.</p>
+    </div>
+  </section>
+
   <div class="overlay"></div>
 
   <main class="wrap">
@@ -161,8 +320,8 @@
 
   <script>
     const bgs = document.querySelectorAll('.bg');
-    // The dedication page (last slide) holds longer so it can be read
-    const holds = [8000, 8000, 20000];
+    // The dedication (last slide) holds longer so it can be read
+    const holds = [8000, 8000, 25000];
     let current = 0;
     function next() {
       bgs[current].classList.remove('active');
