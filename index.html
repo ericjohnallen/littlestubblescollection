@@ -26,15 +26,11 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
-      transform: scale(1.06);
-      transition: opacity 2.5s ease-in-out, transform 14s ease-out;
+      transition: opacity 1s ease-in-out;
       z-index: -2;
       pointer-events: none;
     }
-    .bg.active {
-      opacity: 1;
-      transform: scale(1);
-    }
+    .bg.active { opacity: 1; }
     .bg-1 { background-image: url('images/bg-1.jpg'); }
     .bg-2 { background-image: url('images/bg-2.jpg'); }
 
@@ -44,7 +40,7 @@
       opacity: 0;
       pointer-events: none;
     }
-    .overlay, .wrap, footer { transition: opacity 2.5s ease-in-out; }
+    .overlay, .wrap, footer { transition: opacity 1s ease-in-out; }
 
     .overlay {
       position: fixed;
@@ -135,9 +131,10 @@
 
     .dedication {
       background: radial-gradient(ellipse at 50% 30%, #f6efe1 0%, #efe5d1 55%, #e6dabf 100%);
-      transform: none;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
       color: #4d3b26;
       text-align: center;
@@ -145,14 +142,13 @@
     .dedication.active { z-index: 1; pointer-events: auto; }
 
     .ded-inner {
+      width: 100%;
       max-width: 1080px;
-      margin: 0 auto;
-      padding: clamp(1.6rem, 4.5vh, 3.5rem) clamp(1.2rem, 4vw, 3rem);
+      padding: clamp(1.2rem, 3.5vh, 2.5rem) clamp(1.2rem, 4vw, 3rem);
       display: flex;
       flex-direction: column;
-      gap: clamp(1.4rem, 3.2vh, 2.4rem);
-      min-height: 100%;
-      justify-content: center;
+      gap: clamp(1rem, 2.6vh, 2rem);
+      flex-shrink: 0;
     }
 
     .ded-title {
@@ -187,10 +183,22 @@
       margin: 0 auto;
     }
 
-    .ded-family {
-      max-width: 620px;
+    .ded-photo img {
+      display: block;
       width: 100%;
+      height: auto;
+      border: 1px solid #b8a586;
+      box-shadow: 0 10px 30px rgba(77, 59, 38, 0.22);
+    }
+
+    /* Photos sized against the viewport so the whole page fits one screen */
+    .ded-family img {
+      width: auto;
+      max-width: 100%;
+      max-height: 32vh;
       margin: 0 auto;
+      /* the print scan runs dark — brighten on display, original file untouched */
+      filter: brightness(1.22) contrast(1.03) saturate(1.05);
     }
 
     .ded-top {
@@ -201,16 +209,17 @@
     }
 
     .ded-mom img {
+      width: auto;
       max-width: min(100%, 190px);
+      max-height: 24vh;
       margin: 0 auto;
     }
 
-    .ded-photo img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 1px solid #b8a586;
-      box-shadow: 0 10px 30px rgba(77, 59, 38, 0.22);
+    .ded-bottom .ded-photo img {
+      width: auto;
+      max-width: 100%;
+      max-height: 18vh;
+      margin: 0 auto;
     }
 
     .ded-photo figcaption {
@@ -261,20 +270,21 @@
       color: #59452b;
     }
 
-    @media (max-height: 900px) {
-      .ded-inner { gap: 1.1rem; }
-      .ded-family { max-width: 460px; }
-      .ded-mom img { max-width: min(100%, 160px); }
-    }
-
+    /* Phones: single readable column that scrolls; no fit-scaling */
     @media (max-width: 760px) {
-      .ded-inner { justify-content: flex-start; }
+      .dedication {
+        display: block;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .ded-inner { margin: 0 auto; }
       .ded-top, .ded-bottom { grid-template-columns: 1fr; }
       .ded-bottom .ded-photo { order: -1; }
+      .ded-family img, .ded-mom img, .ded-bottom .ded-photo img { max-height: none; }
+      .ded-family img { width: 100%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .bg { transition: opacity 2.5s ease-in-out; transform: none; }
       .badge, h1, .tagline, .coming { animation: none; }
     }
   </style>
@@ -341,7 +351,7 @@
 
   <script>
     const bgs = document.querySelectorAll('.bg');
-    // The dedication (last slide) holds longer so it can be read
+    // Illustrations show fully for 8s with a quick 1s fade; the dedication holds 25s
     const holds = [8000, 8000, 25000];
     let current = 0;
     function next() {
@@ -352,6 +362,19 @@
       setTimeout(next, holds[current]);
     }
     setTimeout(next, holds[0]);
+
+    // Scale the dedication down just enough that it always fits one screen (desktop/tablet)
+    const dedInner = document.querySelector('.ded-inner');
+    function fitDedication() {
+      dedInner.style.transform = '';
+      if (window.innerWidth <= 760) return;
+      const scale = Math.min(1, window.innerHeight / dedInner.offsetHeight);
+      if (scale < 1) dedInner.style.transform = 'scale(' + scale + ')';
+    }
+    window.addEventListener('resize', fitDedication);
+    window.addEventListener('load', fitDedication);
+    document.querySelectorAll('.ded-photo img').forEach(img => img.addEventListener('load', fitDedication));
+    fitDedication();
   </script>
 </body>
 </html>
