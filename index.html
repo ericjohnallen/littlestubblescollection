@@ -358,6 +358,7 @@
       bgs[current].classList.remove('active');
       current = (current + 1) % bgs.length;
       bgs[current].classList.add('active');
+      bgs[current].scrollTop = 0;
       document.body.classList.toggle('reading', current === bgs.length - 1);
       setTimeout(next, holds[current]);
     }
